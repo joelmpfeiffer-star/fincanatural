@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Us – Finca Natural · Isla Solarte</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --green: #2ECC5A; --charcoal: #1a1a1a; --offwhite: #f5f2ec; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Barlow', sans-serif; background: var(--charcoal); color: var(--offwhite); overflow-x: hidden; }
+
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1rem 2.5rem; background: rgba(26,26,26,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(46,204,90,0.2); }
+  .nav-logo { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
+  .nav-logo img { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; border: none; }
+  .nav-brand { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; color: var(--offwhite); letter-spacing: 2px; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { font-family: 'Barlow Condensed', sans-serif; font-size: 0.85rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: rgba(245,242,236,0.7); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover, .nav-links a.active { color: var(--green); }
+  .nav-cta { background: var(--green) !important; color: #000 !important; padding: 0.45rem 1.2rem; border-radius: 2px; font-weight: 700 !important; }
+
+  .lang-switcher { display: flex; align-items: center; gap: 0.5rem; margin-left: 1.5rem; }
+  .lang-btn { font-family: 'Barlow Condensed', sans-serif; font-size: 0.75rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: rgba(245,242,236,0.5); text-decoration: none; padding: 0.3rem 0.6rem; border-radius: 2px; transition: all 0.2s; }
+  .lang-btn.active { background: var(--green); color: #000; }
+  .lang-btn:hover:not(.active) { color: var(--green); }
+
+  .page-hero { position: relative; height: 60vh; min-height: 420px; display: flex; align-items: center; overflow: hidden; padding: 4rem 2.5rem; }
+  .page-hero-bg { position: absolute; inset: 0; background-image: url('IMG_8053.jpeg'); background-size: cover; background-position: center; filter: brightness(0.45); }
+  .page-hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(26,26,26,0.2) 0%, rgba(26,26,26,0.6) 100%); }
+  .page-hero-content { position: relative; max-width: 1200px; width: 100%; margin: 0 auto; text-align: center; }
+  .page-eyebrow { font-family: 'Barlow Condensed', sans-serif; font-size: 0.75rem; font-weight: 600; letter-spacing: 4px; text-transform: uppercase; color: var(--green); margin-bottom: 0.75rem; }
+  .page-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(4rem, 9vw, 8rem); letter-spacing: 3px; line-height: 0.95; color: #fff; margin-bottom: 1.25rem; }
+  .page-sub { font-size: 1.15rem; color: rgba(245,242,236,0.75); max-width: 660px; line-height: 1.8; margin: 0 auto; }
+
+  .content-section { padding: 6rem 2.5rem; max-width: 900px; margin: 0 auto; }
+  .section-icon { font-size: 2.5rem; margin-bottom: 1.25rem; }
+  .section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 5vw, 4rem); letter-spacing: 2px; line-height: 1.05; color: var(--offwhite); margin-bottom: 1.5rem; }
+  .section-body { font-size: 1.05rem; line-height: 1.9; color: rgba(245,242,236,0.75); margin-bottom: 2.5rem; }
+  .section-body p { margin-bottom: 1.5rem; }
+  .section-list { list-style: none; margin: 1.5rem 0; padding: 0; }
+  .section-list li { font-size: 1.05rem; line-height: 1.9; color: rgba(245,242,236,0.75); display: flex; align-items: flex-start; gap: 0.75rem; margin-bottom: 0.75rem; }
+  .section-list li::before { content: ''; width: 6px; height: 6px; background: var(--green); border-radius: 50%; flex-shrink: 0; margin-top: 11px; }
+
+  .divider { width: 60px; height: 2px; background: var(--green); margin: 4rem 0; }
+
+  .cta-banner { background: var(--green); padding: 5rem 2.5rem; text-align: center; }
+  .cta-banner h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3rem, 6vw, 5.5rem); letter-spacing: 3px; color: #000; margin-bottom: 1rem; }
+  .cta-banner p { font-size: 1.05rem; color: rgba(0,0,0,0.65); margin-bottom: 2.5rem; }
+  .btn-dark { background: #000; color: var(--green); font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; text-decoration: none; padding: 0.9rem 2.5rem; border-radius: 2px; transition: background 0.2s; display: inline-block; }
+  .btn-dark:hover { background: #1a1a1a; }
+
+  footer { background: #0a0a0a; padding: 2.5rem; text-align: center; border-top: 1px solid rgba(46,204,90,0.1); }
+  .footer-nav { display: flex; justify-content: center; gap: 2rem; list-style: none; margin-bottom: 1.5rem; flex-wrap: wrap; }
+  .footer-nav a { font-family: 'Barlow Condensed', sans-serif; font-size: 0.75rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: rgba(245,242,236,0.3); text-decoration: none; transition: color 0.2s; }
+  .footer-nav a:hover { color: var(--green); }
+  .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 3px; color: var(--green); margin-bottom: 0.4rem; }
+  .footer-sub { font-family: 'Barlow Condensed', sans-serif; font-size: 0.75rem; letter-spacing: 3px; text-transform: uppercase; color: rgba(245,242,236,0.2); }
+
+  .whatsapp-float { position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 200; width: 56px; height: 56px; background: #25D366; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(37,211,102,0.4); text-decoration: none; transition: transform 0.2s; }
+  .whatsapp-float:hover { transform: scale(1.1); }
+  .whatsapp-float svg { width: 28px; height: 28px; fill: #fff; }
+
+  /* MOBILE MENU */
+  .mobile-menu-btn { display: none; background: none; border: none; cursor: pointer; padding: 0.5rem; flex-direction: column; gap: 0.35rem; z-index: 101; }
+  .mobile-menu-btn span { display: block; width: 24px; height: 2px; background: var(--offwhite); transition: all 0.3s; }
+  .mobile-menu-btn.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+  .mobile-menu-btn.active span:nth-child(2) { opacity: 0; }
+  .mobile-menu-btn.active span:nth-child(3) { transform: rotate(-45deg) translate(6px, -6px); }
+  .mobile-menu-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 100; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+  .mobile-menu-overlay.active { opacity: 1; pointer-events: all; }
+  .mobile-menu-nav { display: flex; flex-direction: column; gap: 1.5rem; align-items: center; }
+  .mobile-menu-nav a { font-family: 'Barlow Condensed', sans-serif; font-size: 1.5rem; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--offwhite); text-decoration: none; transition: color 0.2s; }
+  .mobile-menu-nav a:hover { color: var(--green); }
+  .mobile-menu-nav .mobile-cta { background: var(--green); color: #000; padding: 0.75rem 2rem; border-radius: 2px; margin-top: 1rem; }
+
+  @media (max-width: 768px) {
+    .lang-switcher { display: none; }
+    nav { padding: 1rem 1.25rem; }
+    .nav-links { display: none; }
+    .mobile-menu-btn { display: flex !important; }
+    .content-section { padding: 4rem 1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="sloth_Biriba.png" alt="Finca Natural">
+    <span class="nav-brand">Finca Natural</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="tours.html">Tours</a></li>
+    <li><a href="learning.html">Learning</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="about.html" class="active">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="https://script.google.com/macros/s/AKfycby1_NFe-Gu9mGDG5awY_ApCrz7OXSv6_MshxP3l3g2mgjXnpP20SJtZc8xtoIwHDf6y/exec" target="_blank" class="nav-cta">Book Now</a></li>
+  </ul>
+  <button class="mobile-menu-btn" aria-label="Menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu-overlay">
+  <nav class="mobile-menu-nav">
+    <a href="index.html">Home</a>
+    <a href="tours.html">Tours</a>
+    <a href="learning.html">Learning</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+    <a href="https://script.google.com/macros/s/AKfycby1_NFe-Gu9mGDG5awY_ApCrz7OXSv6_MshxP3l3g2mgjXnpP20SJtZc8xtoIwHDf6y/exec" target="_blank" class="mobile-cta">Book Now</a>
+  </nav>
+</div>
+
+<div class="page-hero">
+  <div class="page-hero-bg"></div>
+  <div class="page-hero-overlay"></div>
+  <div class="page-hero-content">
+    <p class="page-eyebrow">Our Story</p>
+    <h1 class="page-title">About Us</h1>
+    <p class="page-sub">A young family building a living ecosystem on the edge of the jungle and the Caribbean Sea — rooted in love, hard work, and regenerative growing practices.</p>
+  </div>
+</div>
+
+<div class="content-section">
+  <div class="section-icon">🌿</div>
+  <h2 class="section-title">Our Family Farm</h2>
+  <div class="section-body">
+    <p>We're a young family building something real on the edge of the jungle and the Caribbean Sea — an off-grid farm rooted in love, hard work, and regenerative growing practices. What started back in 2021 as a simple dream has become a living ecosystem: fruit trees, animals, forest soil, clean water, and wild nature all working together the way they're meant to.</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section-icon">🌱</div>
+  <h2 class="section-title">Reforesting & Regenerating the Land</h2>
+  <div class="section-body">
+    <p>We're rebuilding the forest canopy, planting diverse fruit trees, restoring soil biology, and letting natural systems come back stronger than before. Our approach follows nature's logic — mulch instead of chemicals, microbes instead of fertilizer, forest layers instead of bare ground. Every season, the land gets healthier, more alive, and more resilient.</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section-icon">🍃</div>
+  <h2 class="section-title">Learning From the Forest</h2>
+  <div class="section-body">
+    <p>We model our farm after the rainforest that surrounds us. We then culture and develop a blueprint of the soil microbiome that we can capture and propagate.</p>
+    <p>That means:</p>
+  </div>
+  <ul class="section-list">
+    <li>Keeping the ground covered with leaves, wood chips, and organic matter</li>
+    <li>Nurturing Indigenous Microorganisms (IMO) and living soil</li>
+    <li>Letting biodiversity and nature guide the design</li>
+    <li>Planting with intention, shade, and layers</li>
+    <li>Working with the rain, not against it</li>
+  </ul>
+  <div class="section-body">
+    <p>The farm becomes richer each year because the soil is alive — and we protect it.</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section-icon">⚡</div>
+  <h2 class="section-title">Fully Off-Grid Living</h2>
+  <div class="section-body">
+    <p>Everything we do runs on solar power, harvested rainwater, sweat, and creativity. Off-grid life keeps things honest — every improvement we make is built by hand, and every part of our system has to make sense naturally, without relying on big infrastructure.</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section-icon">🌺</div>
+  <h2 class="section-title">A Family Project, A Growing Vision</h2>
+  <div class="section-body">
+    <p>We're raising our child here, planting trees that will outlive us, building a place that feeds people, teaches people, and inspires people to reconnect with the land. This is our life's work — watching the forest return, the soil come alive, and a real ecosystem take shape where we can grow, learn, and belong.</p>
+  </div>
+</div>
+
+<div class="cta-banner">
+  <h2>Come Visit</h2>
+  <p>Experience the farm and see our vision in action. Book your tour today.</p>
+  <a href="https://script.google.com/macros/s/AKfycby1_NFe-Gu9mGDG5awY_ApCrz7OXSv6_MshxP3l3g2mgjXnpP20SJtZc8xtoIwHDf6y/exec" target="_blank" class="btn-dark">Book Your Tour</a>
+</div>
+
+<footer>
+  <ul class="footer-nav">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="tours.html">Tours</a></li>
+    <li><a href="learning.html">Learning</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div class="footer-logo">Finca Natural</div>
+  <p class="footer-sub">Taste · Explore · Learn · Isla Solarte, Bocas del Toro</p>
+  <p style="margin-top:1rem; font-size:0.75rem; color:rgba(245,242,236,0.15);">© 2025 Finca Natural. All rights reserved.</p>
+</footer>
+
+<a href="https://wa.me/50765629220" class="whatsapp-float" target="_blank" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+</a>
+
+<script>
+const menuBtn = document.querySelector('.mobile-menu-btn');
+const menuOverlay = document.querySelector('.mobile-menu-overlay');
+menuBtn.addEventListener('click', () => {
+  menuBtn.classList.toggle('active');
+  menuOverlay.classList.toggle('active');
+  document.body.style.overflow = menuOverlay.classList.contains('active') ? 'hidden' : '';
+});
+menuOverlay.addEventListener('click', (e) => {
+  if (e.target === menuOverlay) {
+    menuBtn.classList.remove('active');
+    menuOverlay.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tours – Finca Natural · Isla Solarte</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --green: #2ECC5A; --charcoal: #1a1a1a; --offwhite: #f5f2ec; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Barlow', sans-serif; background: var(--charcoal); color: var(--offwhite); overflow-x: hidden; }
+
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1rem 2.5rem; background: rgba(26,26,26,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(46,204,90,0.2); }
+  .nav-logo { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
+  .nav-logo img { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; border: none; }
+  .nav-brand { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; color: var(--offwhite); letter-spacing: 2px; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { font-family: 'Barlow Condensed', sans-serif; font-size: 0.85rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: rgba(245,242,236,0.7); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover, .nav-links a.active { color: var(--green); }
+  .nav-cta { background: var(--green) !important; color: #000 !important; padding: 0.45rem 1.2rem; border-radius: 2px; font-weight: 700 !important; }
+
+  .lang-switcher { display: flex; align-items: center; gap: 0.5rem; margin-left: 1.5rem; }
+  .lang-btn { font-family: 'Barlow Condensed', sans-serif; font-size: 0.75rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: rgba(245,242,236,0.5); text-decoration: none; padding: 0.3rem 0.6rem; border-radius: 2px; transition: all 0.2s; }
+  .lang-btn.active { background: var(--green); color: #000; }
+  .lang-btn:hover:not(.active) { color: var(--green); }
+
+  .page-hero { position: relative; height: 55vh; min-height: 400px; display: flex; align-items: flex-end; overflow: hidden; padding: 4rem 2.5rem; }
+  .page-hero-bg { position: absolute; inset: 0; background-image: url('IMG_8926.JPG'); background-size: cover; background-position: center; filter: brightness(0.45); }
+  .page-hero-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(26,26,26,0.97) 0%, rgba(26,26,26,0.15) 100%); }
+  .page-hero-content { position: relative; max-width: 1200px; width: 100%; margin: 0 auto; }
+  .page-eyebrow { font-family: 'Barlow Condensed', sans-serif; font-size: 0.75rem; font-weight: 600; letter-spacing: 4px; text-transform: uppercase; color: var(--green); margin-bottom: 0.5rem; }
+  .page-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3.5rem, 8vw, 7rem); letter-spacing: 3px; line-height: 0.95; color: #fff; }
+  .page-sub { font-size: 1.05rem; color: rgba(245,242,236,0.6); margin-top: 1rem; max-width: 560px; line-height: 1.7; }
+
+  .intro-section { padding: 4rem 2.5rem; max-width: 1200px; margin: 0 auto; text-align: center; }
+  .intro-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2rem, 4vw, 3rem); letter-spacing: 2px; color: var(--offwhite); margin-bottom: 1rem; }
+
+  .tours-section { padding: 4rem 2.5rem; max-width: 1200px; margin: 0 auto; }
+  .tour-card { background: #1a1a1a; border: 1px solid rgba(46,204,90,0.12); border-radius: 4px; padding: 3rem; margin-bottom: 3rem; display: grid; grid-template-columns: 1fr 1.2fr; gap: 3rem; align-items: start; }
+  .tour-card-img { width: 100%; height: 320px; object-fit: cover; border-radius: 4px; }
+  .tour-badge { display: inline-block; background: rgba(46,204,90,0.15); color: var(--green); font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 0.35rem 0.85rem; border-radius: 2px; margin-bottom: 1rem; }
+  .tour-time { font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem; color: var(--green); line-height: 1; margin-bottom: 0.5rem; }
+  .tour-title { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; letter-spacing: 1px; color: var(--offwhite); margin-bottom: 1.25rem; line-height: 1.1; }
+  .tour-desc { font-size: 0.95rem; line-height: 1.8; color: rgba(245,242,236,0.65); margin-bottom: 2rem; }
+  .tour-includes { margin-bottom: 2rem; }
+  .tour-includes-title { font-family: 'Barlow Condensed', sans-serif; font-size: 0.75rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--green); margin-bottom: 1rem; }
+  .tour-list { list-style: none; }
+  .tour-list li { font-size: 0.9rem; line-height: 1.6; color: rgba(245,242,236,0.6); display: flex; align-items: flex-start; gap: 0.75rem; margin-bottom: 0.6rem; }
+  .tour-list li::before { content: '✓'; color: var(--green); font-weight: bold; flex-shrink: 0; margin-top: 1px; }
+  .tour-buttons { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary { background: var(--green); color: #000; font-family: 'Barlow Condensed', sans-serif; font-size: 0.9rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; text-decoration: none; padding: 0.8rem 2rem; border-radius: 2px; transition: background 0.2s; display: inline-block; }
+  .btn-primary:hover { background: #25b34d; }
+  .btn-outline { background: transparent; color: var(--green); font-family: 'Barlow Condensed', sans-serif; font-size: 0.9rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; text-decoration: none; padding: 0.8rem 2rem; border: 1.5px solid var(--green); border-radius: 2px; transition: background 0.2s, color 0.2s; display: inline-block; }
+  .btn-outline:hover { background: var(--green); color: #000; }
+
+  .info-grid { background: #111; padding: 5rem 2.5rem; }
+  .info-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 3rem; }
+  .info-card { }
+  .info-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+  .info-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 1px; color: var(--offwhite); margin-bottom: 1rem; }
+  .info-list { list-style: none; }
+  .info-list li { font-size: 0.9rem; line-height: 1.7; color: rgba(245,242,236,0.6); margin-bottom: 0.5rem; display: flex; align-items: flex-start; gap: 0.6rem; }
+  .info-list li::before { content: '•'; color: var(--green); font-weight: bold; flex-shrink: 0; }
+
+  .cta-banner { background: var(--green); padding: 5rem 2.5rem; text-align: center; }
+  .cta-banner h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3rem, 6vw, 5.5rem); letter-spacing: 3px; color: #000; margin-bottom: 1rem; }
+  .cta-banner p { font-size: 1.05rem; color: rgba(0,0,0,0.65); margin-bottom: 2.5rem; }
+  .btn-dark { background: #000; color: var(--green); font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; text-decoration: none; padding: 0.9rem 2.5rem; border-radius: 2px; transition: background 0.2s; display: inline-block; }
+  .btn-dark:hover { background: #1a1a1a; }
+
+  footer { background: #0a0a0a; padding: 2.5rem; text-align: center; border-top: 1px solid rgba(46,204,90,0.1); }
+  .footer-nav { display: flex; justify-content: center; gap: 2rem; list-style: none; margin-bottom: 1.5rem; flex-wrap: wrap; }
+  .footer-nav a { font-family: 'Barlow Condensed', sans-serif; font-size: 0.75rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: rgba(245,242,236,0.3); text-decoration: none; transition: color 0.2s; }
+  .footer-nav a:hover { color: var(--green); }
+  .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 3px; color: var(--green); margin-bottom: 0.4rem; }
+  .footer-sub { font-family: 'Barlow Condensed', sans-serif; font-size: 0.75rem; letter-spacing: 3px; text-transform: uppercase; color: rgba(245,242,236,0.2); }
+
+  .whatsapp-float { position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 200; width: 56px; height: 56px; background: #25D366; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(37,211,102,0.4); text-decoration: none; transition: transform 0.2s; }
+  .whatsapp-float:hover { transform: scale(1.1); }
+  .whatsapp-float svg { width: 28px; height: 28px; fill: #fff; }
+
+  .mobile-menu-btn { display: none; background: none; border: none; cursor: pointer; padding: 0.5rem; flex-direction: column; gap: 0.35rem; z-index: 101; }
+  .mobile-menu-btn span { display: block; width: 24px; height: 2px; background: var(--offwhite); transition: all 0.3s; }
+  .mobile-menu-btn.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+  .mobile-menu-btn.active span:nth-child(2) { opacity: 0; }
+  .mobile-menu-btn.active span:nth-child(3) { transform: rotate(-45deg) translate(6px, -6px); }
+  .mobile-menu-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 100; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+  .mobile-menu-overlay.active { opacity: 1; pointer-events: all; }
+  .mobile-menu-nav { display: flex; flex-direction: column; gap: 1.5rem; align-items: center; }
+  .mobile-menu-nav a { font-family: 'Barlow Condensed', sans-serif; font-size: 1.5rem; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--offwhite); text-decoration: none; transition: color 0.2s; }
+  .mobile-menu-nav a:hover { color: var(--green); }
+  .mobile-menu-nav .mobile-cta { background: var(--green); color: #000; padding: 0.75rem 2rem; border-radius: 2px; margin-top: 1rem; }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.25rem; }
+    .nav-links, .lang-switcher { display: none; }
+    .mobile-menu-btn { display: flex !important; }
+    .tour-card { grid-template-columns: 1fr; gap: 1.5rem; padding: 2rem; }
+    .tour-card-img { height: 240px; }
+    .info-inner { gap: 2.5rem; }
+    .intro-section, .tours-section, .info-grid { padding: 3rem 1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index-es.html" class="nav-logo">
+    <img src="sloth_Biriba.png" alt="Finca Natural">
+    <span class="nav-brand">Finca Natural</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index-es.html">Inicio</a></li>
+    <li><a href="tours-es.html" class="active">Tours</a></li>
+    <li><a href="learning-es.html">Aprendizaje</a></li>
+    <li><a href="gallery-es.html">Galería</a></li>
+    <li><a href="about-es.html">Nosotros</a></li>
+    <li><a href="contact-es.html">Contacto</a></li>
+    <li><a href="https://script.google.com/macros/s/AKfycby1_NFe-Gu9mGDG5awY_ApCrz7OXSv6_MshxP3l3g2mgjXnpP20SJtZc8xtoIwHDf6y/exec" target="_blank" class="nav-cta">Reservar Ahora</a></li>
+  </ul>
+  <div class="lang-switcher">
+    <a href="tours.html" class="lang-btn">EN</a>
+    <a href="tours-es.html" class="lang-btn active">ES</a>
+  </div>
+  <button class="mobile-menu-btn" aria-label="Menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu-overlay">
+  <nav class="mobile-menu-nav">
+    <a href="index-es.html">Inicio</a>
+    <a href="tours-es.html">Tours</a>
+    <a href="learning-es.html">Aprendizaje</a>
+    <a href="gallery-es.html">Galería</a>
+    <a href="about-es.html">Nosotros</a>
+    <a href="contact-es.html">Contacto</a>
+    <a href="https://script.google.com/macros/s/AKfycby1_NFe-Gu9mGDG5awY_ApCrz7OXSv6_MshxP3l3g2mgjXnpP20SJtZc8xtoIwHDf6y/exec" target="_blank" class="mobile-cta">Reservar Ahora</a>
+    <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+      <a href="tours.html" class="lang-btn">English</a>
+      <a href="tours-es.html" class="lang-btn active">Español</a>
+    </div>
+  </nav>
+</div>
+
+<div class="page-hero">
+  <div class="page-hero-bg"></div>
+  <div class="page-hero-overlay"></div>
+  <div class="page-hero-content">
+    <p class="page-eyebrow">A 10 Minutos de Bocas Town</p>
+    <h1 class="page-title">Tours de la Finca</h1>
+    <p class="page-sub">Grupos pequeños. Comida real. Tierra viva.</p>
+  </div>
+</div>
+
+<div class="intro-section">
+  <h2 class="intro-title">Elige Tu Experiencia</h2>
+  <p style="font-size: 1rem; color: rgba(245,242,236,0.6); max-width: 700px; margin: 0 auto;">Todos los tours son en grupos pequeños, prácticos y dirigidos por la familia que vive y trabaja en la finca cada día.</p>
+</div>
+
+<div class="tours-section">
+  
+  <!-- MORNING TOUR -->
+  <div class="tour-card">
+    <div>
+      <img src="IMG_8926.JPG" alt="Tour matutino" class="tour-card-img">
+    </div>
+    <div>
+      <span class="tour-badge">Mié – Vie</span>
+      <div class="tour-time">9:30 AM</div>
+      <h3 class="tour-title">Tour de Té, Elixires y Finca Viva</h3>
+      <p class="tour-desc">Este tour matutino se trata de relajarse y conectarse. Camina por la finca, conoce a los animales, prueba frutas tropicales frescas y aprende cómo un bosque de alimentos vivo funciona en armonía con la naturaleza.</p>
+      <div class="tour-includes">
+        <div class="tour-includes-title">Cada Tour Incluye</div>
+        <ul class="tour-list">
+          <li>Té tropical fresco de árboles cultivados en la finca</li>
+          <li>Caminata guiada por la finca</li>
+          <li>Conoce los animales de la finca</li>
+          <li>Prueba frutas de temporada directamente del árbol</li>
+          <li>Aprende cómo la microbiología impulsa la finca</li>
+        </ul>
+      </div>
+      <div class="tour-buttons">
+        <a href="https://script.google.com/macros/s/AKfycby1_NFe-Gu9mGDG5awY_ApCrz7OXSv6_MshxP3l3g2mgjXnpP20SJtZc8xtoIwHDf6y/exec" target="_blank" class="btn-primary">Reservar por Web</a>
+        <a href="https://wa.me/50765629220" target="_blank" class="btn-outline">Reservar por WhatsApp</a>
+      </div>
+      <p style="margin-top: 1.5rem; font-size: 0.85rem; color: rgba(245,242,236,0.45);">$30 Por Persona · Máx 10</p>
+    </div>
+  </div>
+
+  <!-- AFTERNOON TOUR -->
+  <div class="tour-card">
+    <div>
+      <img src="IMG_8053.jpeg" alt="Tour vespertino" class="tour-card-img">
+    </div>
+    <div>
+      <span class="tour-badge">Mié – Vie</span>
+      <div class="tour-time">3:00 PM</div>
+      <h3 class="tour-title">Caminata Regenerativa y Tour de Sistemas</h3>
+      <p class="tour-desc">El tour vespertino profundiza en cómo funciona la finca. Aprende sobre biología del suelo, microorganismos indígenas, sistemas de animales sin olor y el ciclo completo de insumos de la finca — todo diseñado para imitar el bosque tropical que nos rodea.</p>
+      <div class="tour-includes">
+        <div class="tour-includes-title">Cada Tour Incluye</div>
+        <ul class="tour-list">
+          <li>Té fresco hecho en la finca para empezar</li>
+          <li>Todos los insumos de la finca y biología del suelo explicados</li>
+          <li>Sistemas de animales sin olor explicados</li>
+          <li>Microbiología en acción</li>
+          <li>Perspectivas sobre árboles frutales y manejo de la tierra</li>
+          <li>Prueba frutas de temporada y elixires silvestres</li>
+        </ul>
+      </div>
+      <div class="tour-buttons">
+        <a href="https://script.google.com/macros/s/AKfycby1_NFe-Gu9mGDG5awY_ApCrz7OXSv6_MshxP3l3g2mgjXnpP20SJtZc8xtoIwHDf6y/exec" target="_blank" class="btn-primary">Reservar por Web</a>
+        <a href="https://wa.me/50765629220" target="_blank" class="btn-outline">Reservar por WhatsApp</a>
+      </div>
+      <p style="margin-top: 1.5rem; font-size: 0.85rem; color: rgba(245,242,236,0.45);">$30 Por Persona · Máx 10</p>
+    </div>
+  </div>
+
+  <!-- SATURDAY BREAKFAST -->
+  <div class="tour-card">
+    <div>
+      <img src="IMG_8005.jpeg" alt="Desayuno del sábado" class="tour-card-img">
+    </div>
+    <div>
+      <span class="tour-badge">Solo Sábado por la Mañana</span>
+      <div class="tour-time">7:00 AM</div>
+      <h3 class="tour-title">Canto de Pájaros y Desayuno</h3>
+      <p class="tour-desc">Experimenta la finca al amanecer cuando los pájaros están más activos. Camina por el bosque de alimentos mientras el sol sale, luego disfruta de un desayuno casero completo hecho con ingredientes frescos de la finca.</p>
+      <div class="tour-includes">
+        <div class="tour-includes-title">Menú de Desayuno</div>
+        <ul class="tour-list">
+          <li>Plato de huevos frescos de nuestras propias gallinas</li>
+          <li>Verduras cultivadas en la finca — moringa, katuk, bejuco de ajo</li>
+          <li>Raíces como taro, yuca, ñame</li>
+          <li>Pan hecho localmente</li>
+          <li>Café o té de hojas tropicales para empezar</li>
+          <li>Caminata matutina completa por la finca incluida</li>
+        </ul>
+      </div>
+      <div class="tour-buttons">
+        <a href="https://script.google.com/macros/s/AKfycby1_NFe-Gu9mGDG5awY_ApCrz7OXSv6_MshxP3l3g2mgjXnpP20SJtZc8xtoIwHDf6y/exec" target="_blank" class="btn-primary">Reservar por Web</a>
+        <a href="https://wa.me/50765629220" target="_blank" class="btn-outline">Reservar por WhatsApp</a>
+      </div>
+      <p style="margin-top: 1.5rem; font-size: 0.85rem; color: rgba(245,242,236,0.45);">$45 Por Persona · Máx 10</p>
+    </div>
+  </div>
+
+  <!-- PRIVATE TOURS -->
+  <div class="tour-card">
+    <div>
+      <img src="IMG_8213.jpeg" alt="Tours privados" class="tour-card-img">
+    </div>
+    <div>
+      <span class="tour-badge">Bajo Petición</span>
+      <div class="tour-time">Cualquier Día</div>
+      <h3 class="tour-title">Tours Privados</h3>
+      <p class="tour-desc">Más tiempo uno a uno con los propietarios de la finca. Explora la finca a tu propio ritmo, ve el paisaje superior y todos los rincones, y profundiza en la vida fuera de la red, animales, árboles y manejo del suelo.</p>
+      <div class="tour-includes">
+        <div class="tour-includes-title">Experiencia Privada</div>
+        <ul class="tour-list">
+          <li>Personalizado según los intereses de tu grupo</li>
+          <li>Horario flexible y ritmo</li>
+          <li>Acceso completo a toda la propiedad</li>
+          <li>Tiempo individual con los propietarios de la finca</li>
+          <li>Enfoque profundo en temas específicos</li>
+          <li>Disponible cualquier día con aviso previo</li>
+        </ul>
+      </div>
+      <div class="tour-buttons">
+        <a href="https://wa.me/50765629220" target="_blank" class="btn-primary">Contáctanos para Tours Privados</a>
+      </div>
+      <p style="margin-top: 1.5rem; font-size: 0.85rem; color: rgba(245,242,236,0.45);">Precios varían según el tamaño del grupo y duración</p>
+    </div>
+  </div>
+
+</div>
+
+<div class="info-grid">
+  <div class="info-inner">
+    <div class="info-card">
+      <div class="info-icon">🚤</div>
+      <h3 class="info-title">Cómo Llegar</h3>
+      <ul class="info-list">
+        <li>Ubicados en Isla Solarte, Bocas del Toro</li>
+        <li>A solo 10 minutos de Bocas Town en taxi acuático</li>
+        <li>Direcciones exactas enviadas al momento de la reserva</li>
+        <li>Llega unos minutos antes</li>
+      </ul>
+    </div>
+    <div class="info-card">
+      <div class="info-icon">🎒</div>
+      <h3 class="info-title">Qué Traer</h3>
+      <ul class="info-list">
+        <li>Zapatos cerrados o botas — requerido</li>
+        <li>Ropa ligera que no te importe ensuciar un poco</li>
+        <li>Repelente de insectos y protector solar</li>
+        <li>Botella de agua</li>
+        <li>¡Una mente curiosa y apetito!</li>
+      </ul>
+    </div>
+    <div class="info-card">
+      <div class="info-icon">ℹ️</div>
+      <h3 class="info-title">Bueno Saber</h3>
+      <ul class="info-list">
+        <li>Máximo 10 personas por tour programado</li>
+        <li>Reserva requerida con anticipación</li>
+        <li>Por favor cancela con al menos 24 horas de anticipación</li>
+        <li>Ideal para familias, amantes de la comida y la naturaleza</li>
+        <li>Tours de Mié–Vie + Sábado por la mañana</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="cta-banner">
+  <h2>¿Listo para Visitarnos?</h2>
+  <p>Reserva tu lugar en un tour programado o contáctanos para organizar una experiencia privada.</p>
+  <a href="https://script.google.com/macros/s/AKfycby1_NFe-Gu9mGDG5awY_ApCrz7OXSv6_MshxP3l3g2mgjXnpP20SJtZc8xtoIwHDf6y/exec" target="_blank" class="btn-dark">Reserva Tu Tour</a>
+</div>
+
+<footer>
+  <ul class="footer-nav">
+    <li><a href="index-es.html">Inicio</a></li>
+    <li><a href="tours-es.html">Tours</a></li>
+    <li><a href="learning-es.html">Aprendizaje</a></li>
+    <li><a href="gallery-es.html">Galería</a></li>
+    <li><a href="about-es.html">Nosotros</a></li>
+    <li><a href="contact-es.html">Contacto</a></li>
+  </ul>
+  <div class="footer-logo">Finca Natural</div>
+  <p class="footer-sub">Prueba · Explora · Aprende · Isla Solarte, Bocas del Toro</p>
+  <p style="margin-top:1rem; font-size:0.75rem; color:rgba(245,242,236,0.15);">© 2025 Finca Natural. Todos los derechos reservados.</p>
+</footer>
+
+<a href="https://wa.me/50765629220" class="whatsapp-float" target="_blank" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+</a>
+
+<script>
+const menuBtn = document.querySelector('.mobile-menu-btn');
+const menuOverlay = document.querySelector('.mobile-menu-overlay');
+menuBtn.addEventListener('click', () => {
+  menuBtn.classList.toggle('active');
+  menuOverlay.classList.toggle('active');
+  document.body.style.overflow = menuOverlay.classList.contains('active') ? 'hidden' : '';
+});
+menuOverlay.addEventListener('click', (e) => {
+  if (e.target === menuOverlay) {
+    menuBtn.classList.remove('active');
+    menuOverlay.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+});
+</script>
+
+</body>
+</html>
