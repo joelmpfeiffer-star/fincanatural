@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://fincanatural.com/sitemap.xml
+
+# Crawl-delay (be nice to small servers)
+Crawl-delay: 10
