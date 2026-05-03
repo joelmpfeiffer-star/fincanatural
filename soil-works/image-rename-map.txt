@@ -1,0 +1,22 @@
+Original uploaded filename -> cleaned filename
+
+WhatsApp Image 2026-05-03 at 09.35.08.jpeg -> images/hero-sloth.jpg
+WhatsApp Image 2026-05-03 at 09.33.57.jpeg -> images/soil-earthworms.jpg
+WhatsApp Image 2026-05-03 at 09.33.57 (6).jpeg -> images/imo-active-mycelium.jpg
+WhatsApp Image 2026-05-03 at 09.33.57 (5).jpeg -> images/imo-finished-material.jpg
+WhatsApp Image 2026-05-03 at 09.33.57 (7).jpeg -> images/forest-floor-imo-material.jpg
+WhatsApp Image 2026-05-03 at 09.33.58 (12).jpeg -> images/chicken-coop-deep-litter.jpg
+WhatsApp Image 2026-05-03 at 09.33.58 (1).jpeg -> images/jms-fermentation-blue-barrel.jpg
+WhatsApp Image 2026-05-03 at 09.33.58.jpeg -> images/imo-biochar-in-bucket.jpg
+WhatsApp Image 2026-05-03 at 09.33.58 (15).jpeg -> images/deep-litter-after-treatment.jpg
+WhatsApp Image 2026-05-03 at 09.33.58 (6).jpeg -> images/nursery-potting-bags.jpg
+WhatsApp Image 2026-05-03 at 09.33.58 (5).jpeg -> images/mulched-planting-bed.jpg
+WhatsApp Image 2026-05-03 at 09.33.58 (8).jpeg -> images/seedling-pot-closeup.jpg
+WhatsApp Image 2026-05-03 at 09.33.58 (9).jpeg -> images/potting-mix-bucket.jpg
+WhatsApp Image 2026-05-03 at 09.33.58 (7).jpeg -> images/young-seedlings-emerging.jpg
+WhatsApp Image 2026-05-03 at 09.52.56.jpeg -> images/compost-temperature-app.jpg
+WhatsApp Image 2026-05-03 at 09.33.58 (10).jpeg -> images/jms-fermentation-white-bucket.jpg
+WhatsApp Image 2026-05-03 at 09.33.58 (11).jpeg -> images/soil-amendment-mix.jpg
+WhatsApp Image 2026-05-03 at 09.33.58 (13).jpeg -> images/jms-fermentation-small-bucket.jpg
+WhatsApp Image 2026-05-03 at 09.33.58 (14).jpeg -> images/biochar-bucket.jpg
+WhatsApp Image 2026-05-03 at 09.53.58.jpeg -> images/compost-thermometer-reading.jpg
