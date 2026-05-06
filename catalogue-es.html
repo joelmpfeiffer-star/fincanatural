@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Catálogo de la Finca – Finca Natural · Bocas del Toro</title>
+
+<!-- SEO Meta Tags -->
+<meta name="description" content="Explore nuestros productos orgánicos frescos, hierbas, frutas, huevos y más de Finca Natural. Productos de agricultura regenerativa disponibles para pedido en Bocas del Toro, Panamá.">
+<meta name="keywords" content="productos orgánicos Panamá, huevos frescos de granja, productos permacultura, Bocas del Toro, agricultura sostenible, vegetales orgánicos, tienda de granja">
+<meta name="robots" content="noindex, nofollow">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;600;700&family=Barlow+Condensed:wght@400;600;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --green: #2ecc5a;
+    --charcoal: #1a1a1a;
+    --offwhite: #f5f2ec;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Barlow', sans-serif; background: var(--charcoal); color: var(--offwhite); overflow-x: hidden; }
+
+  /* NAV */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1rem 2.5rem; background: rgba(26,26,26,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(46,204,90,0.2); }
+  .nav-logo { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
+  .nav-logo img { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; }
+  .nav-brand { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; color: var(--offwhite); letter-spacing: 2px; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { font-family: 'Barlow Condensed', sans-serif; font-size: 0.85rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: rgba(245,242,236,0.7); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--green); }
+  
+  /* LANGUAGE SWITCHER */
+  .lang-switcher { display: flex; align-items: center; gap: 0.5rem; margin-left: 1.5rem; }
+  .lang-btn { font-family: 'Barlow Condensed', sans-serif; font-size: 0.75rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: rgba(245,242,236,0.5); text-decoration: none; padding: 0.3rem 0.6rem; border-radius: 2px; transition: all 0.2s; }
+  .lang-btn.active { background: var(--green); color: #000; }
+  .lang-btn:hover:not(.active) { color: var(--green); }
+
+  /* HEADER */
+  .catalogue-header { padding: 8rem 2.5rem 3rem; text-align: center; background: linear-gradient(to bottom, #1a1a1a 0%, #111 100%); }
+  .catalogue-eyebrow { font-family: 'Barlow Condensed', sans-serif; font-size: 0.8rem; font-weight: 600; letter-spacing: 4px; text-transform: uppercase; color: var(--green); margin-bottom: 1rem; }
+  .catalogue-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3rem, 8vw, 6rem); letter-spacing: 3px; line-height: 1; color: var(--offwhite); margin-bottom: 1rem; }
+  .catalogue-subtitle { font-size: 1.1rem; color: rgba(245,242,236,0.6); max-width: 600px; margin: 0 auto 2rem; line-height: 1.6; }
+
+  /* FILTERS */
+  .filters { background: #1e1e1e; padding: 1.5rem 2.5rem; border-bottom: 1px solid rgba(46,204,90,0.1); position: sticky; top: 73px; z-index: 90; backdrop-filter: blur(12px); }
+  .filters-inner { max-width: 1400px; margin: 0 auto; display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap; justify-content: center; }
+  .filter-group { display: flex; align-items: center; gap: 0.75rem; }
+  .filter-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.75rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: rgba(245,242,236,0.5); }
+  .filter-select { font-family: 'Barlow', sans-serif; background: var(--charcoal); color: var(--offwhite); border: 1px solid rgba(46,204,90,0.2); padding: 0.5rem 1rem; border-radius: 2px; font-size: 0.9rem; cursor: pointer; transition: border-color 0.2s; }
+  .filter-select:hover, .filter-select:focus { border-color: var(--green); outline: none; }
+  .search-input { flex: 1; max-width: 400px; font-family: 'Barlow', sans-serif; background: var(--charcoal); color: var(--offwhite); border: 1px solid rgba(46,204,90,0.2); padding: 0.6rem 1rem; border-radius: 2px; font-size: 0.9rem; transition: border-color 0.2s; }
+  .search-input:focus { border-color: var(--green); outline: none; }
+  .search-input::placeholder { color: rgba(245,242,236,0.3); }
+
+  /* LOADING */
+  .loading { text-align: center; padding: 4rem 2rem; }
+  .loading-spinner { width: 50px; height: 50px; border: 3px solid rgba(46,204,90,0.1); border-top-color: var(--green); border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 1rem; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .loading-text { font-family: 'Barlow Condensed', sans-serif; font-size: 0.9rem; letter-spacing: 2px; text-transform: uppercase; color: rgba(245,242,236,0.5); }
+
+  /* CATALOGUE GRID */
+  .catalogue-container { max-width: 1400px; margin: 0 auto; padding: 3rem 2.5rem; }
+  .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
+
+  /* PRODUCT CARD */
+  .product-card { background: #1e1e1e; border: 1px solid rgba(46,204,90,0.12); border-radius: 4px; overflow: hidden; transition: border-color 0.3s, transform 0.3s; display: flex; flex-direction: column; }
+  .product-card:hover { border-color: var(--green); transform: translateY(-4px); }
+  .product-card.unavailable { opacity: 0.6; }
+  .product-card.unavailable:hover { transform: none; border-color: rgba(46,204,90,0.12); }
+  
+  .product-image-container { position: relative; width: 100%; height: 240px; background: #111; overflow: hidden; }
+  .product-image { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+  .product-card:hover .product-image { transform: scale(1.05); }
+  .product-badge { position: absolute; top: 0.75rem; right: 0.75rem; font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 0.3rem 0.7rem; border-radius: 2px; background: var(--green); color: #000; }
+  .product-badge.organic { background: var(--green); }
+  .product-badge.unavailable { background: #666; color: #fff; }
+  .product-category { position: absolute; bottom: 0.75rem; left: 0.75rem; font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; padding: 0.25rem 0.6rem; border-radius: 2px; background: rgba(0,0,0,0.7); color: var(--offwhite); }
+
+  .product-body { padding: 1.5rem; flex: 1; display: flex; flex-direction: column; }
+  .product-header { margin-bottom: 0.75rem; }
+  .product-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 1px; color: var(--offwhite); margin-bottom: 0.25rem; line-height: 1.1; }
+  .product-variety { font-size: 0.85rem; color: rgba(245,242,236,0.5); font-style: italic; }
+
+  .product-description { font-size: 0.88rem; line-height: 1.6; color: rgba(245,242,236,0.65); margin-bottom: 1rem; flex: 1; }
+
+  .product-meta { display: flex; flex-direction: column; gap: 0.5rem; padding-top: 0.75rem; border-top: 1px solid rgba(46,204,90,0.1); }
+  .meta-row { display: flex; align-items: center; gap: 0.5rem; font-size: 0.8rem; }
+  .meta-icon { color: var(--green); font-size: 1rem; }
+  .meta-label { color: rgba(245,242,236,0.4); }
+  .meta-value { color: var(--offwhite); font-weight: 600; }
+
+  .product-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid rgba(46,204,90,0.1); }
+  .product-price { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: var(--green); line-height: 1; }
+  .price-unit { font-size: 0.75rem; color: rgba(245,242,236,0.5); font-family: 'Barlow', sans-serif; }
+  .add-to-cart-btn { font-family: 'Barlow Condensed', sans-serif; font-size: 0.85rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; background: var(--green); color: #000; border: none; padding: 0.65rem 1.5rem; border-radius: 2px; cursor: pointer; transition: background 0.2s, transform 0.15s; }
+  .add-to-cart-btn:hover:not(:disabled) { background: #25b34d; transform: translateY(-2px); }
+  .add-to-cart-btn:disabled { background: #666; cursor: not-allowed; opacity: 0.5; }
+
+  /* CART FLOAT */
+  .cart-float { position: fixed; bottom: 1.5rem; right: 5.5rem; z-index: 200; width: 56px; height: 56px; background: var(--green); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(46,204,90,0.4); cursor: pointer; transition: transform 0.2s; }
+  .cart-float:hover { transform: scale(1.1); }
+  .cart-count { position: absolute; top: -5px; right: -5px; background: #ff4444; color: white; font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; font-weight: 700; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+
+  /* WHATSAPP FLOAT */
+  .whatsapp-float { position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 200; width: 56px; height: 56px; background: #25D366; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(37,211,102,0.4); text-decoration: none; transition: transform 0.2s; }
+  .whatsapp-float:hover { transform: scale(1.1); }
+  .whatsapp-float svg { width: 28px; height: 28px; fill: #fff; }
+
+  /* EMPTY STATE */
+  .empty-state { text-align: center; padding: 4rem 2rem; }
+  .empty-icon { font-size: 4rem; margin-bottom: 1rem; opacity: 0.3; }
+  .empty-text { font-family: 'Barlow Condensed', sans-serif; font-size: 1.1rem; letter-spacing: 2px; text-transform: uppercase; color: rgba(245,242,236,0.5); }
+
+  /* MOBILE */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.25rem; }
+    .nav-links { display: none; }
+    .catalogue-header { padding: 6rem 1.25rem 2rem; }
+    .filters { padding: 1rem; top: 73px; }
+    .filters-inner { flex-direction: column; gap: 1rem; }
+    .search-input { max-width: 100%; }
+    .catalogue-container { padding: 2rem 1.25rem; }
+    .product-grid { grid-template-columns: 1fr; }
+    .cart-float { bottom: 5rem; right: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index-es.html" class="nav-logo">
+    <img src="sloth_Biriba.png" alt="Finca Natural">
+    <span class="nav-brand">Finca Natural</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index-es.html">Inicio</a></li>
+    <li><a href="tours-es.html">Tours</a></li>
+    <li><a href="learning-es.html">Aprendizaje</a></li>
+    <li><a href="gallery-es.html">Galería</a></li>
+    <li><a href="about-es.html">Acerca</a></li>
+    <li><a href="contact-es.html">Contacto</a></li>
+  </ul>
+  <div class="lang-switcher">
+    <a href="catalogue.html" class="lang-btn">EN</a>
+    <a href="catalogue-es.html" class="lang-btn active">ES</a>
+  </div>
+</nav>
+
+<!-- HEADER -->
+<header class="catalogue-header">
+  <div class="catalogue-eyebrow">Fresco de la Finca</div>
+  <h1 class="catalogue-title">Catálogo de la Finca</h1>
+  <p class="catalogue-subtitle">Productos orgánicos, hierbas, huevos y más de nuestra finca de permacultura regenerativa. Todos los productos cultivados con amor y cuidado por la tierra.</p>
+</header>
+
+<!-- FILTERS -->
+<div class="filters">
+  <div class="filters-inner">
+    <input type="text" id="searchInput" class="search-input" placeholder="Buscar productos...">
+    <div class="filter-group">
+      <span class="filter-label">Categoría:</span>
+      <select id="categoryFilter" class="filter-select">
+        <option value="">Todas las Categorías</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <span class="filter-label">Método de Cultivo:</span>
+      <select id="methodFilter" class="filter-select">
+        <option value="">Todos los Métodos</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <span class="filter-label">Disponibilidad:</span>
+      <select id="availabilityFilter" class="filter-select">
+        <option value="">Todos los Productos</option>
+        <option value="available">En Stock</option>
+        <option value="unavailable">Agotado</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<!-- LOADING -->
+<div id="loadingState" class="loading">
+  <div class="loading-spinner"></div>
+  <div class="loading-text">Cargando productos frescos...</div>
+</div>
+
+<!-- CATALOGUE -->
+<div class="catalogue-container">
+  <div id="productGrid" class="product-grid"></div>
+  <div id="emptyState" class="empty-state" style="display: none;">
+    <div class="empty-icon">🌱</div>
+    <div class="empty-text">No se encontraron productos</div>
+  </div>
+</div>
+
+<!-- CART FLOAT -->
+<div class="cart-float" id="cartFloat" onclick="showCart()" style="display: none;">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+  </svg>
+  <span class="cart-count" id="cartCount">0</span>
+</div>
+
+<!-- WHATSAPP FLOAT -->
+<a href="https://wa.me/50765629220" class="whatsapp-float" target="_blank" aria-label="Contáctanos por WhatsApp">
+  <svg viewBox="0 0 32 32"><path d="M16 0c-8.837 0-16 7.163-16 16 0 2.825 0.737 5.607 2.137 8.048l-2.137 7.952 7.933-2.127c2.42 1.37 5.173 2.127 8.067 2.127 8.837 0 16-7.163 16-16s-7.163-16-16-16zM16 29.467c-2.482 0-4.908-0.646-7.07-1.87l-0.507-0.292-5.305 1.43 1.438-5.284-0.322-0.527c-1.353-2.22-2.067-4.768-2.067-7.357 0-7.51 6.11-13.62 13.62-13.62s13.62 6.11 13.62 13.62-6.11 13.62-13.62 13.62zM21.305 18.483c-0.357-0.18-2.117-1.043-2.443-1.163-0.327-0.12-0.565-0.18-0.803 0.18s-0.923 1.163-1.13 1.4c-0.208 0.237-0.417 0.267-0.773 0.087s-1.51-0.557-2.876-1.775c-1.063-0.948-1.78-2.12-1.988-2.477s-0.022-0.552 0.157-0.73c0.162-0.16 0.357-0.417 0.537-0.625 0.18-0.208 0.24-0.357 0.36-0.595 0.12-0.237 0.060-0.445-0.030-0.625s-0.803-1.933-1.1-2.647c-0.287-0.695-0.58-0.6-0.803-0.612-0.208-0.010-0.445-0.012-0.683-0.012s-0.625 0.088-0.952 0.445c-0.327 0.357-1.247 1.218-1.247 2.97s1.277 3.445 1.455 3.683c0.18 0.237 2.517 3.844 6.095 5.39 0.852 0.368 1.517 0.587 2.035 0.752 0.857 0.272 1.637 0.234 2.253 0.142 0.687-0.103 2.117-0.865 2.415-1.7s0.298-1.55 0.208-1.7c-0.089-0.15-0.327-0.237-0.684-0.417z"/></svg>
+</a>
+
+<script>
+// ============================================
+// CONFIGURACIÓN DE AIRTABLE
+// ============================================
+// CONFIGURACIÓN REQUERIDA: Agrega tus credenciales de Airtable abajo
+const AIRTABLE_CONFIG = {
+  apiKey: '', // AGREGA TUS CREDENCIALES DE API DE AIRTABLE AQUÍ
+  baseId: 'appS6Wqg52SEanUjH',
+  tableId: 'tblsjbC8tkBbCIuz9'
+};
+
+// ============================================
+// ESTADO GLOBAL
+// ============================================
+let allProducts = [];
+let cart = [];
+
+// ============================================
+// OBTENER PRODUCTOS DE AIRTABLE
+// ============================================
+async function fetchProducts() {
+  const url = `https://api.airtable.com/v0/${AIRTABLE_CONFIG.baseId}/${AIRTABLE_CONFIG.tableId}`;
+  
+  try {
+    const response = await fetch(url, {
+      headers: {
+        'Authorization': `Bearer ${AIRTABLE_CONFIG.apiKey}`
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data.records;
+  } catch (error) {
+    console.error('Error al cargar productos:', error);
+    document.getElementById('loadingState').innerHTML = `
+      <div class="empty-icon">⚠️</div>
+      <div class="empty-text">Error al cargar productos. Por favor verifica tu configuración de Airtable.</div>
+      <div style="color: rgba(245,242,236,0.3); font-size: 0.8rem; margin-top: 1rem;">
+        Asegúrate de haber agregado tus credenciales de API en el código.
+      </div>
+    `;
+    return [];
+  }
+}
+
+// ============================================
+// RENDERIZAR PRODUCTOS
+// ============================================
+function renderProducts(products) {
+  const grid = document.getElementById('productGrid');
+  const emptyState = document.getElementById('emptyState');
+  
+  if (products.length === 0) {
+    grid.innerHTML = '';
+    emptyState.style.display = 'block';
+    return;
+  }
+
+  emptyState.style.display = 'none';
+  
+  grid.innerHTML = products.map((record, index) => {
+    const fields = record.fields;
+    const isAvailable = fields['Is Available'] || false;
+    const imageUrl = fields.Images && fields.Images[0] ? fields.Images[0].url : '';
+    const growingMethods = Array.isArray(fields['Growing Method']) ? fields['Growing Method'] : [];
+    const hasOrganic = growingMethods.some(m => m.toLowerCase().includes('organic') || m.toLowerCase().includes('permaculture'));
+    
+    return `
+      <div class="product-card ${!isAvailable ? 'unavailable' : ''}" data-index="${index}">
+        <div class="product-image-container">
+          ${imageUrl ? 
+            `<img src="${imageUrl}" alt="${fields.Name || 'Producto'}" class="product-image">` : 
+            `<div class="product-image" style="background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%); display: flex; align-items: center; justify-content: center; font-size: 3rem; opacity: 0.3;">🌱</div>`
+          }
+          ${hasOrganic ? '<div class="product-badge organic">Orgánico</div>' : ''}
+          ${!isAvailable ? '<div class="product-badge unavailable">Agotado</div>' : ''}
+          ${fields.Category ? `<div class="product-category">${fields.Category}</div>` : ''}
+        </div>
+        
+        <div class="product-body">
+          <div class="product-header">
+            <h3 class="product-name">${fields.Name || 'Producto sin nombre'}</h3>
+            ${fields['Variety/Breed'] ? `<div class="product-variety">${fields['Variety/Breed']}</div>` : ''}
+          </div>
+          
+          ${fields.Description ? `<p class="product-description">${fields.Description}</p>` : ''}
+          
+          <div class="product-meta">
+            ${fields['Stock Quantity'] ? `
+              <div class="meta-row">
+                <span class="meta-icon">📦</span>
+                <span class="meta-label">Stock:</span>
+                <span class="meta-value">${fields['Stock Quantity']} ${fields['Unit Type'] || 'unidades'}</span>
+              </div>
+            ` : ''}
+            ${fields['Harvest/Production Date'] ? `
+              <div class="meta-row">
+                <span class="meta-icon">📅</span>
+                <span class="meta-label">Cosechado:</span>
+                <span class="meta-value">${new Date(fields['Harvest/Production Date']).toLocaleDateString('es-ES')}</span>
+              </div>
+            ` : ''}
+            ${fields['Shelf Life/Expiration'] ? `
+              <div class="meta-row">
+                <span class="meta-icon">⏱️</span>
+                <span class="meta-label">Vida útil:</span>
+                <span class="meta-value">${fields['Shelf Life/Expiration']}</span>
+              </div>
+            ` : ''}
+            ${growingMethods.length > 0 ? `
+              <div class="meta-row">
+                <span class="meta-icon">🌿</span>
+                <span class="meta-label">Método:</span>
+                <span class="meta-value">${growingMethods.join(', ')}</span>
+              </div>
+            ` : ''}
+          </div>
+          
+          <div class="product-footer">
+            <div>
+              ${fields['Unit Price'] ? `
+                <div class="product-price">$${fields['Unit Price'].toFixed(2)}</div>
+                <div class="price-unit">por ${fields['Unit Type'] || 'unidad'}</div>
+              ` : '<div class="product-price">—</div>'}
+            </div>
+            <button 
+              class="add-to-cart-btn" 
+              onclick="addToCart(${index})"
+              ${!isAvailable ? 'disabled' : ''}
+            >
+              ${isAvailable ? 'Agregar' : 'Agotado'}
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+// ============================================
+// FUNCIONES DE FILTRO
+// ============================================
+function filterProducts() {
+  const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+  const categoryFilter = document.getElementById('categoryFilter').value;
+  const methodFilter = document.getElementById('methodFilter').value;
+  const availabilityFilter = document.getElementById('availabilityFilter').value;
+
+  const filtered = allProducts.filter(record => {
+    const fields = record.fields;
+    
+    // Filtro de búsqueda
+    const matchesSearch = !searchTerm || 
+      (fields.Name && fields.Name.toLowerCase().includes(searchTerm)) ||
+      (fields.Description && fields.Description.toLowerCase().includes(searchTerm)) ||
+      (fields['Variety/Breed'] && fields['Variety/Breed'].toLowerCase().includes(searchTerm));
+    
+    // Filtro de categoría
+    const matchesCategory = !categoryFilter || fields.Category === categoryFilter;
+    
+    // Filtro de método de cultivo
+    const matchesMethod = !methodFilter || 
+      (Array.isArray(fields['Growing Method']) && fields['Growing Method'].includes(methodFilter));
+    
+    // Filtro de disponibilidad
+    const isAvailable = fields['Is Available'] || false;
+    const matchesAvailability = !availabilityFilter || 
+      (availabilityFilter === 'available' && isAvailable) ||
+      (availabilityFilter === 'unavailable' && !isAvailable);
+    
+    return matchesSearch && matchesCategory && matchesMethod && matchesAvailability;
+  });
+
+  renderProducts(filtered);
+}
+
+// ============================================
+// POBLAR OPCIONES DE FILTRO
+// ============================================
+function populateFilters(products) {
+  const categories = new Set();
+  const methods = new Set();
+
+  products.forEach(record => {
+    const fields = record.fields;
+    
+    if (fields.Category) categories.add(fields.Category);
+    
+    if (Array.isArray(fields['Growing Method'])) {
+      fields['Growing Method'].forEach(method => methods.add(method));
+    }
+  });
+
+  // Poblar filtro de categorías
+  const categoryFilter = document.getElementById('categoryFilter');
+  Array.from(categories).sort().forEach(category => {
+    const option = document.createElement('option');
+    option.value = category;
+    option.textContent = category;
+    categoryFilter.appendChild(option);
+  });
+
+  // Poblar filtro de métodos
+  const methodFilter = document.getElementById('methodFilter');
+  Array.from(methods).sort().forEach(method => {
+    const option = document.createElement('option');
+    option.value = method;
+    option.textContent = method;
+    methodFilter.appendChild(option);
+  });
+}
+
+// ============================================
+// FUNCIONES DEL CARRITO
+// ============================================
+function addToCart(index) {
+  const product = allProducts[index];
+  const fields = product.fields;
+  
+  const existingItem = cart.find(item => item.id === product.id);
+  
+  if (existingItem) {
+    existingItem.quantity += 1;
+  } else {
+    cart.push({
+      id: product.id,
+      name: fields.Name,
+      price: fields['Unit Price'] || 0,
+      unit: fields['Unit Type'] || 'unidad',
+      quantity: 1,
+      image: fields.Images && fields.Images[0] ? fields.Images[0].url : ''
+    });
+  }
+  
+  updateCartDisplay();
+  
+  // Retroalimentación visual
+  const btn = event.target;
+  const originalText = btn.textContent;
+  btn.textContent = '¡Agregado! ✓';
+  btn.style.background = '#25b34d';
+  setTimeout(() => {
+    btn.textContent = originalText;
+    btn.style.background = '';
+  }, 1000);
+}
+
+function updateCartDisplay() {
+  const cartCount = document.getElementById('cartCount');
+  const cartFloat = document.getElementById('cartFloat');
+  
+  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+  
+  if (totalItems > 0) {
+    cartCount.textContent = totalItems;
+    cartFloat.style.display = 'flex';
+  } else {
+    cartFloat.style.display = 'none';
+  }
+}
+
+function showCart() {
+  if (cart.length === 0) {
+    alert('Tu carrito está vacío. ¡Agrega algunos productos primero!');
+    return;
+  }
+
+  let orderMessage = '🌱 *Pedido Finca Natural*\n\n';
+  let total = 0;
+
+  cart.forEach(item => {
+    const itemTotal = item.price * item.quantity;
+    total += itemTotal;
+    orderMessage += `• ${item.name}\n  ${item.quantity} × $${item.price.toFixed(2)} = $${itemTotal.toFixed(2)}\n\n`;
+  });
+
+  orderMessage += `*Total: $${total.toFixed(2)}*\n\n`;
+  orderMessage += 'Por favor confirma tu pedido e indícanos tu hora preferida de recogida/entrega.';
+
+  // Abrir WhatsApp con mensaje pre-llenado
+  const whatsappUrl = `https://wa.me/50765629220?text=${encodeURIComponent(orderMessage)}`;
+  window.open(whatsappUrl, '_blank');
+}
+
+// ============================================
+// EVENTOS
+// ============================================
+document.getElementById('searchInput').addEventListener('input', filterProducts);
+document.getElementById('categoryFilter').addEventListener('change', filterProducts);
+document.getElementById('methodFilter').addEventListener('change', filterProducts);
+document.getElementById('availabilityFilter').addEventListener('change', filterProducts);
+
+// ============================================
+// INICIALIZAR
+// ============================================
+async function init() {
+  const products = await fetchProducts();
+  allProducts = products;
+  
+  if (products.length > 0) {
+    document.getElementById('loadingState').style.display = 'none';
+    populateFilters(products);
+    renderProducts(products);
+  }
+}
+
+// Iniciar la aplicación
+init();
+
+// Cargar carrito desde localStorage
+const savedCart = localStorage.getItem('fincaCart');
+if (savedCart) {
+  cart = JSON.parse(savedCart);
+  updateCartDisplay();
+}
+
+// Guardar carrito en localStorage al cambiar
+window.addEventListener('beforeunload', () => {
+  localStorage.setItem('fincaCart', JSON.stringify(cart));
+});
+</script>
+
+</body>
+</html>
