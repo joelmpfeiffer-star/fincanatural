@@ -156,7 +156,7 @@
 <header class="catalogue-header">
   <div class="catalogue-eyebrow">Fresco de la Finca</div>
   <h1 class="catalogue-title">Catálogo de la Finca</h1>
-  <p class="catalogue-subtitle">Productos orgánicos, hierbas, huevos y más de nuestra finca de permacultura regenerativa. Todos los productos cultivados con amor y cuidado por la tierra.</p>
+  <p class="catalogue-subtitle">Todos los productos cultivados o criados con suelo vivo. Prueba el sabor, siente la nutrición.</p>
 </header>
 
 <!-- FILTERS -->
@@ -167,12 +167,6 @@
       <span class="filter-label">Categoría:</span>
       <select id="categoryFilter" class="filter-select">
         <option value="">Todas las Categorías</option>
-      </select>
-    </div>
-    <div class="filter-group">
-      <span class="filter-label">Método de Cultivo:</span>
-      <select id="methodFilter" class="filter-select">
-        <option value="">Todos los Métodos</option>
       </select>
     </div>
     <div class="filter-group">
@@ -219,11 +213,9 @@
 // ============================================
 // CONFIGURACIÓN DE AIRTABLE
 // ============================================
-// CONFIGURACIÓN REQUERIDA: Agrega tus credenciales de Airtable abajo
+// Usando proxy de Cloudflare Worker - ¡no se necesitan credenciales aquí!
 const AIRTABLE_CONFIG = {
-  apiKey: '', // AGREGA TUS CREDENCIALES DE API DE AIRTABLE AQUÍ
-  baseId: 'appS6Wqg52SEanUjH',
-  tableId: 'tblsjbC8tkBbCIuz9'
+  workerUrl: 'https://finca-airtable-proxy.joelmpfeiffer.workers.dev/'
 };
 
 // ============================================
@@ -233,17 +225,11 @@ let allProducts = [];
 let cart = [];
 
 // ============================================
-// OBTENER PRODUCTOS DE AIRTABLE
+// OBTENER PRODUCTOS DE AIRTABLE VÍA WORKER
 // ============================================
 async function fetchProducts() {
-  const url = `https://api.airtable.com/v0/${AIRTABLE_CONFIG.baseId}/${AIRTABLE_CONFIG.tableId}`;
-  
   try {
-    const response = await fetch(url, {
-      headers: {
-        'Authorization': `Bearer ${AIRTABLE_CONFIG.apiKey}`
-      }
-    });
+    const response = await fetch(AIRTABLE_CONFIG.workerUrl);
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
@@ -255,9 +241,9 @@ async function fetchProducts() {
     console.error('Error al cargar productos:', error);
     document.getElementById('loadingState').innerHTML = `
       <div class="empty-icon">⚠️</div>
-      <div class="empty-text">Error al cargar productos. Por favor verifica tu configuración de Airtable.</div>
+      <div class="empty-text">Error al cargar productos. Por favor verifica tu conexión.</div>
       <div style="color: rgba(245,242,236,0.3); font-size: 0.8rem; margin-top: 1rem;">
-        Asegúrate de haber agregado tus credenciales de API en el código.
+        Si esto persiste, contáctanos por WhatsApp.
       </div>
     `;
     return [];
@@ -364,7 +350,6 @@ function renderProducts(products) {
 function filterProducts() {
   const searchTerm = document.getElementById('searchInput').value.toLowerCase();
   const categoryFilter = document.getElementById('categoryFilter').value;
-  const methodFilter = document.getElementById('methodFilter').value;
   const availabilityFilter = document.getElementById('availabilityFilter').value;
 
   const filtered = allProducts.filter(record => {
@@ -379,17 +364,13 @@ function filterProducts() {
     // Filtro de categoría
     const matchesCategory = !categoryFilter || fields.Category === categoryFilter;
     
-    // Filtro de método de cultivo
-    const matchesMethod = !methodFilter || 
-      (Array.isArray(fields['Growing Method']) && fields['Growing Method'].includes(methodFilter));
-    
     // Filtro de disponibilidad
     const isAvailable = fields['Is Available'] || false;
     const matchesAvailability = !availabilityFilter || 
       (availabilityFilter === 'available' && isAvailable) ||
       (availabilityFilter === 'unavailable' && !isAvailable);
     
-    return matchesSearch && matchesCategory && matchesMethod && matchesAvailability;
+    return matchesSearch && matchesCategory && matchesAvailability;
   });
 
   renderProducts(filtered);
@@ -400,16 +381,11 @@ function filterProducts() {
 // ============================================
 function populateFilters(products) {
   const categories = new Set();
-  const methods = new Set();
 
   products.forEach(record => {
     const fields = record.fields;
     
     if (fields.Category) categories.add(fields.Category);
-    
-    if (Array.isArray(fields['Growing Method'])) {
-      fields['Growing Method'].forEach(method => methods.add(method));
-    }
   });
 
   // Poblar filtro de categorías
@@ -419,15 +395,6 @@ function populateFilters(products) {
     option.value = category;
     option.textContent = category;
     categoryFilter.appendChild(option);
-  });
-
-  // Poblar filtro de métodos
-  const methodFilter = document.getElementById('methodFilter');
-  Array.from(methods).sort().forEach(method => {
-    const option = document.createElement('option');
-    option.value = method;
-    option.textContent = method;
-    methodFilter.appendChild(option);
   });
 }
 
@@ -508,7 +475,6 @@ function showCart() {
 // ============================================
 document.getElementById('searchInput').addEventListener('input', filterProducts);
 document.getElementById('categoryFilter').addEventListener('change', filterProducts);
-document.getElementById('methodFilter').addEventListener('change', filterProducts);
 document.getElementById('availabilityFilter').addEventListener('change', filterProducts);
 
 // ============================================
